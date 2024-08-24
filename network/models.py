@@ -15,12 +15,12 @@ class Network(models.Model):
                                            verbose_name="Задолженность перед поставщиком")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
 
+    def __str__(self):
+        return f"{self.name}"
+
     class Meta:
         verbose_name = "Поставщик"
         verbose_name_plural = "Поставщики"
-
-    def __str__(self):
-        return f"{self.name}"
 
 
 class Contact(models.Model):
@@ -29,14 +29,14 @@ class Contact(models.Model):
     country = models.CharField(max_length=100, verbose_name="Страна")
     city = models.CharField(max_length=100, verbose_name="Город")
     street = models.CharField(max_length=100, verbose_name="Улица")
-    house_number = models.IntegerField(verbose_name="Номер дома")
+    house_number = models.CharField(max_length=15, verbose_name="Номер дома")
+
+    def __str__(self):
+        return f"{self.supplier}"
 
     class Meta:
         verbose_name = "Контакт"
         verbose_name_plural = "Контакты"
-
-    def __str__(self):
-        return f"{self.supplier}"
 
 
 class Product(models.Model):
@@ -45,9 +45,9 @@ class Product(models.Model):
     model = models.CharField(max_length=100, verbose_name="Модель")
     release_date = models.DateTimeField(verbose_name="Дата выхода продукта на рынок")
 
+    def __str__(self):
+        return f"{self.supplier}"
+
     class Meta:
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
-
-    def __str__(self):
-        return f"{self.supplier}"
