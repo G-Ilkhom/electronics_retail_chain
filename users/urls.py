@@ -10,7 +10,15 @@ app_name = UsersConfig.name
 
 urlpatterns = [
     path("", UserListAPIView.as_view(), name="users_list"),
-    path("login/", TokenObtainPairView.as_view(permission_classes=(AllowAny,)), name='login'),
-    path("token/refresh/", TokenRefreshView.as_view(permission_classes=(AllowAny,)), name='token-refresh'),
-    path("register/", UserCreateAPIView.as_view(), name='register'),
+    path(
+        "login/",
+        TokenObtainPairView.as_view(permission_classes=(AllowAny,)),
+        name="login",
+    ),
+    path(
+        "token/refresh/",
+        TokenRefreshView.as_view(permission_classes=(AllowAny,)),
+        name="token-refresh",
+    ),
+    path("register/", UserCreateAPIView.as_view(), name="register"),
 ]

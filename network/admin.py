@@ -1,5 +1,6 @@
 from django.contrib import admin
-from network.models import Network, Contact, Product
+
+from network.models import Contact, Network, Product
 
 
 @admin.action(description="Очистить задолженность перед поставщиком")
@@ -9,7 +10,13 @@ def clear_debt(modeladmin, request, queryset):
 
 @admin.register(Network)
 class NetworkAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "level", "supplier", "debt_to_supplier",)
+    list_display = (
+        "id",
+        "name",
+        "level",
+        "supplier",
+        "debt_to_supplier",
+    )
     search_fields = ("name",)
     list_filter = ("supplier",)
     actions = [clear_debt]
@@ -18,7 +25,15 @@ class NetworkAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ("id", "email", "country", "city", "street", "house_number", "supplier",)
+    list_display = (
+        "id",
+        "email",
+        "country",
+        "city",
+        "street",
+        "house_number",
+        "supplier",
+    )
     search_fields = ("email",)
     list_filter = ("city",)
     list_display_links = ["supplier"]
@@ -26,7 +41,16 @@ class ContactAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ("id", "name", "model", "release_date", "supplier",)
+    list_display = (
+        "id",
+        "name",
+        "model",
+        "release_date",
+        "supplier",
+    )
     search_fields = ("name",)
-    list_filter = ("release_date", "supplier",)
+    list_filter = (
+        "release_date",
+        "supplier",
+    )
     list_display_links = ["supplier"]

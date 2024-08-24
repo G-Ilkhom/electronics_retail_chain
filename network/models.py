@@ -8,11 +8,21 @@ class Network(models.Model):
         (2, "Индивидуальный предприниматель"),
     )
 
-    name = models.CharField(max_length=100, verbose_name="Название"),
+    name = (models.CharField(max_length=100, verbose_name="Название"),)
     level = models.IntegerField(choices=LEVEL, verbose_name="Уровень поставщика")
-    supplier = models.ForeignKey('self', on_delete=models.CASCADE, verbose_name="Поставщик", null=True, blank=True)
-    debt_to_supplier = models.DecimalField(max_digits=20, decimal_places=2, default=0.00,
-                                           verbose_name="Задолженность перед поставщиком")
+    supplier = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        verbose_name="Поставщик",
+        null=True,
+        blank=True,
+    )
+    debt_to_supplier = models.DecimalField(
+        max_digits=20,
+        decimal_places=2,
+        default=0.00,
+        verbose_name="Задолженность перед поставщиком",
+    )
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
 
     def __str__(self):
@@ -24,7 +34,9 @@ class Network(models.Model):
 
 
 class Contact(models.Model):
-    supplier = models.ForeignKey(Network, on_delete=models.CASCADE, verbose_name="Поставщик")
+    supplier = models.ForeignKey(
+        Network, on_delete=models.CASCADE, verbose_name="Поставщик"
+    )
     email = models.EmailField(verbose_name="Email")
     country = models.CharField(max_length=100, verbose_name="Страна")
     city = models.CharField(max_length=100, verbose_name="Город")
@@ -40,7 +52,9 @@ class Contact(models.Model):
 
 
 class Product(models.Model):
-    supplier = models.ForeignKey(Network, on_delete=models.CASCADE, verbose_name="Поставщик")
+    supplier = models.ForeignKey(
+        Network, on_delete=models.CASCADE, verbose_name="Поставщик"
+    )
     name = models.CharField(max_length=100, verbose_name="Название")
     model = models.CharField(max_length=100, verbose_name="Модель")
     release_date = models.DateTimeField(verbose_name="Дата выхода продукта на рынок")

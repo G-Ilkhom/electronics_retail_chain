@@ -1,11 +1,14 @@
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter
 from rest_framework import viewsets
-from rest_framework.generics import CreateAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.filters import SearchFilter
+from rest_framework.generics import (CreateAPIView, DestroyAPIView,
+                                     ListAPIView, RetrieveAPIView,
+                                     UpdateAPIView)
 
+from network.models import Contact, Network, Product
 from network.permissions import IsActive
-from network.models import Network, Contact, Product
-from network.serializers import NetworkSerializer, ContactSerializer, ProductSerializer
+from network.serializers import (ContactSerializer, NetworkSerializer,
+                                 ProductSerializer)
 
 
 class NetworkCreateAPIView(CreateAPIView):
@@ -34,7 +37,9 @@ class NetworkUpdateAPIView(UpdateAPIView):
     def perform_update(self, serializer):
         if "debt_to_supplier" in serializer.validated_data:
             serializer.validated_data.pop("debt_to_supplier")
-            raise Exception("Вы не можете обновлять поле 'Задолженность перед поставщиком'")
+            raise Exception(
+                "Вы не можете обновлять поле 'Задолженность перед поставщиком'"
+            )
         super().perform_update(serializer)
 
 
